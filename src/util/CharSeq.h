@@ -14,6 +14,7 @@
 class CharSeq {
 public:
     CharSeq(const char* chars, unsigned len);
+    CharSeq(const CharSeq& other);
     ~CharSeq();
 
     unsigned getLen() const
@@ -32,7 +33,7 @@ public:
     bool operator==(const CharSeq &rhs) const;
 
     bool operator!=(const CharSeq &rhs) const;
-
+    friend bool operator<(const CharSeq& lhs, const CharSeq& rhs);
 private:
     char* _seq;
     unsigned _len;

@@ -9,5 +9,9 @@ int main(int argc, const char** argv) {
     CharSeq f("food", 4);
     g.print();
     std::cout << (g == f) << std::endl;
+    CharSeq aa("Yo!!", 3);
+    std::cout << (g < aa) << std::endl;
+    std::cout << (aa < g) << std::endl;
+    CharSeq b = aa;
     return 0;
 }
