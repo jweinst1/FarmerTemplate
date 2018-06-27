@@ -1,6 +1,11 @@
 #include <iostream>
+#include "util/CharSeq.h"
 
-int main() {
-    std::cout << "Hello,Farmer" << std::endl;
+// Main Farmer File
+
+
+int main(int argc, const char** argv) {
+    CharSeq g("food", 4);
+    g.print();
     return 0;
 }
