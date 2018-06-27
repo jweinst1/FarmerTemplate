@@ -19,3 +19,15 @@ void CharSeq::print() {
         std::putc(_seq[i], stdout);
     }
 }
+
+bool CharSeq::operator==(const CharSeq &rhs) const {
+    if(_len != rhs.getLen()) return false;
+    for (unsigned i = 0; i <_len; i++) {
+        if(_seq[i] != rhs[i]) return false;
+    }
+    return true;
+}
+
+bool CharSeq::operator!=(const CharSeq &rhs) const {
+    return !(rhs == *this);
+}
