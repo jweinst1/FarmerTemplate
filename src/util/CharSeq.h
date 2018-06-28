@@ -7,12 +7,16 @@
 
 #include <iostream>
 #include <cstdio>
+#include <cstring>
 
-// Acts as immutable representation of sequence of chars.
+// Acts as representation of sequence of chars.
 // Not meant to be considered a full string.
 
 class CharSeq {
 public:
+    // Constructor for strings with null char
+    explicit CharSeq(const char* string);
+    // Constructor for section of chars.
     CharSeq(const char* chars, unsigned len);
     CharSeq(const CharSeq& other);
     ~CharSeq();
@@ -30,10 +34,16 @@ public:
     // prints to stdout
     void print();
 
-    bool operator==(const CharSeq &rhs) const;
+    bool match(const char* string) const;
 
+    bool operator==(const CharSeq &rhs) const;
     bool operator!=(const CharSeq &rhs) const;
     friend bool operator<(const CharSeq& lhs, const CharSeq& rhs);
+
+    void write(const char* chars);
+
+    // Reads contents of sequence into desination.
+    void read(char *destination) const;
 private:
     char* _seq;
     unsigned _len;

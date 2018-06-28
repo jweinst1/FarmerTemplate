@@ -8,6 +8,15 @@ CharSeq::~CharSeq() {
     delete[] _seq;
 }
 
+CharSeq::CharSeq(const char *string): _len(0) {
+    const char* counter = string;
+    while(*counter++) _len++;
+    _seq = new char[_len];
+    for(unsigned i = 0; i < _len; i++) {
+        _seq[i] = string[i];
+    }
+}
+
 CharSeq::CharSeq(const char *chars, unsigned len): _seq(new char[len]), _len(len) {
     for (unsigned i = 0; i <len ; i++) {
         _seq[i] = chars[i];
@@ -45,3 +54,24 @@ bool operator<(const CharSeq& lhs, const CharSeq& rhs) {
     for( unsigned j = 0; j < lhs._len ; j++) rhsTotal += rhs[j];
     return lhsTotal < rhsTotal;
 }
+
+void CharSeq::read(char *destination) const {
+    for(unsigned i = 0; i < _len; i++) {
+        destination[i] = _seq[i];
+    }
+}
+
+bool CharSeq::match(const char *string) const {
+    for(unsigned i = 0; i < _len; i++) {
+        if(_seq[i] != string[i]) return false;
+    }
+    return true;
+}
+
+void CharSeq::write(const char *chars) {
+    for(unsigned i = 0; i< _len ; i++) {
+        _seq[i] = chars[i];
+    }
+}
+
+
