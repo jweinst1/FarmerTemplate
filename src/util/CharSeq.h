@@ -8,13 +8,17 @@
 #include <iostream>
 #include <cstdio>
 #include <cstring>
+#include <cassert>
+
+
 
 // Acts as representation of sequence of chars.
 // Not meant to be considered a full string.
-
 class CharSeq {
 public:
-
+    // empty sequence is nullptr
+    CharSeq();
+    // Constructs size of seq with all null chars
     explicit CharSeq(unsigned size);
     // Constructor for strings with null char
     explicit CharSeq(const char* string);
@@ -22,6 +26,12 @@ public:
     CharSeq(const char* chars, unsigned len);
     CharSeq(const CharSeq& other);
     ~CharSeq();
+    /**
+     * = Does not allow multi reference, simply makes a copy upon assignment.
+     * @param other: A const reference to a different Char sequence
+     * @return
+     */
+    CharSeq& operator=(const CharSeq& other);
 
     unsigned getLen() const
     {
@@ -30,7 +40,13 @@ public:
 
     char& operator[] (unsigned index) const
     {
+        assert(_seq != nullptr);
         return _seq[index % _len];
+    }
+    // Checks if sequence is the empty sequence
+    bool isEmpty() const
+    {
+        return _len == 0 && _seq == nullptr;
     }
 
     // prints to stdout

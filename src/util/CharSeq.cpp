@@ -3,25 +3,25 @@
 //
 
 #include "CharSeq.h"
-#include <algorithm>
+#include "IndexUtil.h"
 
 CharSeq::~CharSeq() {
     delete[] _seq;
+}
+
+CharSeq::CharSeq(): _seq(nullptr), _len(0) {
+
 }
 
 CharSeq::CharSeq(const char *string): _len(0) {
     const char* counter = string;
     while(*counter++) _len++;
     _seq = new char[_len];
-    for(unsigned i = 0; i < _len; i++) {
-        _seq[i] = string[i];
-    }
+    IdxUtil::copyIndex(_seq, string, (unsigned)0, _len);
 }
 
 CharSeq::CharSeq(const char *chars, unsigned len): _seq(new char[len]), _len(len) {
-    for (unsigned i = 0; i <len ; i++) {
-        _seq[i] = chars[i];
-    }
+    IdxUtil::copyIndex(_seq,  chars, (unsigned)0, _len);
 }
 
 CharSeq::CharSeq(unsigned size): _seq(new char[size]), _len(size) {
@@ -36,10 +36,7 @@ void CharSeq::print() {
 
 bool CharSeq::operator==(const CharSeq &rhs) const {
     if(_len != rhs.getLen()) return false;
-    for (unsigned i = 0; i <_len; i++) {
-        if(_seq[i] != rhs[i]) return false;
-    }
-    return true;
+    return IdxUtil::isEqual(_seq, rhs, (unsigned)0, _len);
 }
 
 bool CharSeq::operator!=(const CharSeq &rhs) const {
@@ -47,9 +44,7 @@ bool CharSeq::operator!=(const CharSeq &rhs) const {
 }
 
 CharSeq::CharSeq(const CharSeq &other): _seq(new char[other.getLen()]), _len(other.getLen()) {
-    for(unsigned i = 0; i < _len ; i++) {
-        _seq[i] = other[i];
-    }
+    IdxUtil::copyIndex(_seq, other, (unsigned)0, _len);
 }
 
 bool operator<(const CharSeq& lhs, const CharSeq& rhs) {
@@ -61,9 +56,7 @@ bool operator<(const CharSeq& lhs, const CharSeq& rhs) {
 }
 
 void CharSeq::read(char *destination) const {
-    for(unsigned i = 0; i < _len; i++) {
-        destination[i] = _seq[i];
-    }
+    IdxUtil::copyIndex(destination, _seq, (unsigned)0, _len);
 }
 
 bool CharSeq::match(const char *string) const {
@@ -80,14 +73,24 @@ void CharSeq::write(const char *chars) {
 }
 
 CharSeq operator+(const CharSeq &lhs, const CharSeq &rhs) {
-    unsigned lhsLen = lhs.getLen();
-    unsigned rhsLen = rhs.getLen();
+    unsigned lhsLen = lhs._len;
+    unsigned rhsLen = rhs._len;
     CharSeq newSeq(lhs.getLen() + rhs.getLen());
     for(unsigned i =0; i < lhsLen; i++) newSeq[i] = lhs[i];
     for(unsigned i=lhsLen; i < (lhsLen + rhsLen); i++) newSeq[i] = rhs[i];
     return newSeq;
 }
 
-
-
+CharSeq &CharSeq::operator=(const CharSeq &other) {
+    if(*this != other) {
+        // deletes current pointer and copies new one.
+        delete[] _seq;
+        _len = other.getLen();
+        _seq = new char[_len];
+        for (unsigned i = 0; i < _len; i++) {
+            _seq[i] = other[i];
+        }
+    }
+    return *this;
+}
 
