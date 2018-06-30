@@ -3,6 +3,7 @@
 //
 
 #include "CharSeq.h"
+#include <algorithm>
 
 CharSeq::~CharSeq() {
     delete[] _seq;
@@ -21,6 +22,10 @@ CharSeq::CharSeq(const char *chars, unsigned len): _seq(new char[len]), _len(len
     for (unsigned i = 0; i <len ; i++) {
         _seq[i] = chars[i];
     }
+}
+
+CharSeq::CharSeq(unsigned size): _seq(new char[size]), _len(size) {
+    std::fill(_seq, _seq + _len, '\0');
 }
 
 void CharSeq::print() {
@@ -73,5 +78,16 @@ void CharSeq::write(const char *chars) {
         _seq[i] = chars[i];
     }
 }
+
+CharSeq operator+(const CharSeq &lhs, const CharSeq &rhs) {
+    unsigned lhsLen = lhs.getLen();
+    unsigned rhsLen = rhs.getLen();
+    CharSeq newSeq(lhs.getLen() + rhs.getLen());
+    for(unsigned i =0; i < lhsLen; i++) newSeq[i] = lhs[i];
+    for(unsigned i=lhsLen; i < (lhsLen + rhsLen); i++) newSeq[i] = rhs[i];
+    return newSeq;
+}
+
+
 
 

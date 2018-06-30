@@ -24,3 +24,13 @@ void CharStream::put(char ch) {
     if(isfull()) expand(CHARSTREAM_EXPAND_CH);
     _stream[_len++] = ch;
 }
+
+CharStream &CharStream::operator<<(char ch) {
+    put(ch);
+    return *this;
+}
+
+CharStream &CharStream::operator<<(const char *string) {
+    while(*string) put(*string++);
+    return *this;
+}

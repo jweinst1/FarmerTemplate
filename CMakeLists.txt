@@ -3,5 +3,5 @@ project(Farmer)
 
 set(CMAKE_CXX_STANDARD 98)
 
-set(SOURCE_FILES src/main.cpp src/util/CharSeq.cpp src/util/CharSeq.h src/util/CharStream.cpp src/util/CharStream.h)
+set(SOURCE_FILES src/main.cpp src/util/CharSeq.cpp src/util/CharSeq.h src/util/CharStream.cpp src/util/CharStream.h src/util/Block.h)
 add_executable(Farmer ${SOURCE_FILES})

@@ -27,6 +27,11 @@ public:
         return _cap;
     }
 
+    size_t getSpace() const
+    {
+        return _cap - _len;
+    }
+
     bool isfull() const
     {
         return _len == _cap;
@@ -34,6 +39,9 @@ public:
     // Writes single char to stream.
     // Meant to be called by higher functions.
     void put(char ch);
+
+    CharStream& operator<<(char ch);
+    CharStream& operator<<(const char* string);
 private:
     // Allows stream to expand in size.
     void expand(size_t addSize);

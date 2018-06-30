@@ -5,13 +5,11 @@
 
 
 int main(int argc, const char** argv) {
-    CharSeq g("food", 4);
-    CharSeq f("food", 4);
+    CharSeq g("food\n");
+    CharSeq f("food\n");
     g.print();
-    std::cout << (g == f) << std::endl;
-    CharSeq aa("Yo!!");
-    std::cout << (g < aa) << std::endl;
-    std::cout << (aa < g) << std::endl;
-    CharSeq b = aa;
+    f.print();
+    CharSeq news = g + f;
+    news.print();
     return 0;
 }

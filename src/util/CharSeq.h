@@ -14,6 +14,8 @@
 
 class CharSeq {
 public:
+
+    explicit CharSeq(unsigned size);
     // Constructor for strings with null char
     explicit CharSeq(const char* string);
     // Constructor for section of chars.
@@ -26,7 +28,7 @@ public:
         return _len;
     }
 
-    const char& operator[] (unsigned index) const
+    char& operator[] (unsigned index) const
     {
         return _seq[index % _len];
     }
@@ -34,11 +36,18 @@ public:
     // prints to stdout
     void print();
 
+    // Checks if direct match against string.
     bool match(const char* string) const;
+
+    void fill(char ch) {
+        std::fill(_seq, _seq + _len, ch);
+    }
 
     bool operator==(const CharSeq &rhs) const;
     bool operator!=(const CharSeq &rhs) const;
     friend bool operator<(const CharSeq& lhs, const CharSeq& rhs);
+
+    friend CharSeq operator+(const CharSeq& lhs, const CharSeq& rhs);
 
     void write(const char* chars);
 
