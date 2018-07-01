@@ -37,6 +37,10 @@ public:
         return _items[index];
     }
 
+    void setItem(IndexType index, const ItemType& newValue) {
+        _items[index] = newValue;
+    }
+
 private:
     std::vector<ItemType> _items;
     std::vector<IndexType> _inputIndexes;

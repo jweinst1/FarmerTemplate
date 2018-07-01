@@ -1,16 +1,13 @@
 #include <iostream>
 #include "util/CharSeq.h"
+#include "util/AbstractTree.h"
 
 // Main Farmer File
 
 
 int main(int argc, const char** argv) {
-    CharSeq g("food\n");
-    CharSeq f("food\n");
-    g.print();
-    f.print();
-    CharSeq news = g + f + f;
-    news.print();
-    std::cout << (g == f) << std::endl;
+    AbstractTree<int> g(3);
+    g << 5 << 6 << 4 << 3 << 2 << 5 << 3;
+    std::cout << g.isFull() << std::endl;
     return 0;
 }
