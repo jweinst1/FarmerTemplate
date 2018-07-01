@@ -60,16 +60,11 @@ void CharSeq::read(char *destination) const {
 }
 
 bool CharSeq::match(const char *string) const {
-    for(unsigned i = 0; i < _len; i++) {
-        if(_seq[i] != string[i]) return false;
-    }
-    return true;
+    return IdxUtil::isEqual(_seq, string, (unsigned)0, _len);
 }
 
 void CharSeq::write(const char *chars) {
-    for(unsigned i = 0; i< _len ; i++) {
-        _seq[i] = chars[i];
-    }
+    IdxUtil::copyIndex(_seq,  chars, (unsigned)0, _len);
 }
 
 CharSeq operator+(const CharSeq &lhs, const CharSeq &rhs) {
