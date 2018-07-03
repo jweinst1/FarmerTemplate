@@ -6,54 +6,28 @@
 #define FARMER_ABSTRACTTREE_H
 
 #include <algorithm>
-
+#include "IndexUtil.h"
 
 template<class T>
 class AbstractTree
 {
 public:
-    explicit AbstractTree(const T& headVal, unsigned long cap = 10): _headItem(headVal), _len(0), _cap(cap), _childNodes(new T[cap]) {}
-
-    ~AbstractTree(){
+    explicit AbstractTree(const T& headItem, unsigned long cap = 10):
+            _headVal(headItem),
+            _len(0),
+            _cap(cap),
+            _childNodes(new AbstractTree<T>*[_cap])
+    {}
+    ~AbstractTree() {
+        for(unsigned long i = 0; i < _len; i++) delete _childNodes[i];
         delete[] _childNodes;
-    }
-
-    bool isFull() const {
-        return _len == _cap;
-    }
-
-    unsigned long getLen() const {
-        return _len;
-    }
-
-    unsigned long getCap() const {
-        return _cap;
-    }
-
-    AbstractTree& operator<<(const T& newItem) {
-        if(isFull()) expand(2);
-        _childNodes[_len++] = newItem;
-        return *this;
-    }
-
-    T& operator[](unsigned long index) {
-        return _childNodes[index];
     }
 private:
-    void expand(int factor) {
-        _cap *= factor;
-        T* newList = new T[_cap];
-        std::copy(_childNodes, _childNodes + _len, newList);
-        delete[] _childNodes;
-        _childNodes = newList;
-    }
-
-    T _headItem;
+    T _headVal;
     unsigned long _len;
     unsigned long _cap;
-    T* _childNodes;
+    AbstractTree<T>** _childNodes;
 };
-
 
 
 #endif //FARMER_ABSTRACTTREE_H
