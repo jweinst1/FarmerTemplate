@@ -7,7 +7,9 @@
 
 int main(int argc, const char** argv) {
     AbstractTree<int> g(3);
-    g << 5 << 6 << 4 << 3 << 2 << 5 << 3;
-    std::cout << g.isFull() << std::endl;
+    std::cout << g.getHead() << std::endl;
+    g << 5 << 8 << 7 << 3;
+    g[0] << 4;
+    std::cout << g[0][0].getHead() << std::endl;
     return 0;
 }
