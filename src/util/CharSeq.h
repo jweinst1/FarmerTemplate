@@ -10,6 +10,8 @@
 #include <cstring>
 #include <cassert>
 
+// Determines size of buffer used in factory
+#define CHAR_SEQ_FACT_BSIZE 1024
 
 
 // Acts as representation of sequence of chars.
@@ -72,6 +74,21 @@ public:
 private:
     char* _seq;
     unsigned _len;
+};
+
+/**
+ * Class that specializes in creating specific CharSeq, like for integers, booleans, or other
+ * common text.
+ */
+class CharSeqFactory
+{
+public:
+    CharSeqFactory();
+    virtual ~CharSeqFactory();
+
+    CharSeq fromInt(int value);
+private:
+    char _creatingBuffer[CHAR_SEQ_FACT_BSIZE];
 };
 
 

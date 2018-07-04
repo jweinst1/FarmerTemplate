@@ -89,3 +89,15 @@ CharSeq &CharSeq::operator=(const CharSeq &other) {
     return *this;
 }
 
+CharSeqFactory::CharSeqFactory() {
+    std::fill(_creatingBuffer, _creatingBuffer + CHAR_SEQ_FACT_BSIZE, '\0');
+}
+
+CharSeqFactory::~CharSeqFactory() {
+
+}
+
+CharSeq CharSeqFactory::fromInt(int value) {
+    int readChars = std::sprintf(_creatingBuffer, "%d", value);
+    return CharSeq(_creatingBuffer, static_cast<unsigned>(readChars));
+}
